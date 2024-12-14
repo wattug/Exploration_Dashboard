@@ -24,7 +24,7 @@ with tab1:
     pivot_all_spasi = data.pivot_table(index='Wilayah', columns='Status', values='Spasi', aggfunc='count', fill_value=0)
 
     # Display Matrix Representation
-    st.write("### Matriks Keseluruhan Data (Tab 1)")
+    st.write("### Matriks Keseluruhan Data")
     st.dataframe(pivot_all_spasi)
 
     # Grouped Bar Chart for All Spasi
