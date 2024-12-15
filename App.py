@@ -188,12 +188,12 @@ with tab3:
 
     # Update layouts for both maps
     map_fig_data.update_layout(
-        mapbox_style="carto-positron", 
+        mapbox_style="open-street-map", 
         mapbox_zoom=10, 
         mapbox_center={"lat": data['Y'].mean(), "lon": data['X'].mean()}
     )
     map_fig_data2.update_layout(
-        mapbox_style="carto-positron", 
+        mapbox_style="open-street-map", 
         mapbox_zoom=10, 
         mapbox_center={"lat": data2['cy'].mean(), "lon": data2['cx'].mean()}
     )
