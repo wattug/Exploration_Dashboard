@@ -181,7 +181,7 @@ with tab3:
 
     # Scatter map for `data2`
     map_fig_data2 = px.scatter_mapbox(
-        data2, lat='cy', lon='cx', color='Status', 
+        data2, lat='latitude', lon='longitude', color='Status', 
         title="Peta Progress Presurvey Terukur dan Tersampling",
         hover_data=['Daerah', 'SPASI', 'Status']
     )
@@ -195,7 +195,7 @@ with tab3:
     map_fig_data2.update_layout(
         mapbox_style="open-street-map", 
         mapbox_zoom=10, 
-        mapbox_center={"lat": data2['cy'].mean(), "lon": data2['cx'].mean()}
+        mapbox_center={"lat": data2['latitude'].mean(), "lon": data2['longitude'].mean()}
     )
 
     # Display maps
