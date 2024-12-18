@@ -124,14 +124,14 @@ with tab3:
     map_fig_data = px.scatter_mapbox(
         data, lat='Y', lon='X', color='Status', 
         title="Peta Progress Identifikasi dan Terizin",
-        hover_data=['Wilayah', 'Spasi', 'Status']
+        hover_data=['Wilayah', 'Spasi', 'Status', 'Name']
     )
 
     # Scatter map for `data2`
     map_fig_data2 = px.scatter_mapbox(
         data2, lat='latitude', lon='longitude', color='Status', 
         title="Peta Progress Presurvey Terukur dan Tersampling",
-        hover_data=['Daerah', 'SPASI', 'Status']
+        hover_data=['Daerah', 'SPASI', 'Status', 'Pemilik Lahan']
     )
 
     # Update layouts for both maps
