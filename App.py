@@ -16,7 +16,7 @@ st.title("Dashboard Eksplorasi Bauksit Meliau")
 st.write("Perkembangan TP selama proses eksplorasi.")
 
 # Mobile-Friendly Design: Toggle between Tabs
-tab1, tab2, tab3 = st.tabs(["Seluruh Data", "Data per Spasi", "Peta & Data"])
+tab1, tab2, tab3, tab4 = st.tabs(["Matriks Data", "Matriks Data per Spasi", "Tabel Data", "Peta"])
 
 # Create a connection object.
 conn = st.connection("gsheets", type=GSheetsConnection)
@@ -25,7 +25,7 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 data = conn.read(worksheet=0)
 data2 = conn.read(worksheet=945353715)
 with tab1:
-    st.write("## Seluruh Data")
+    st.write("## Matriks Data")
     st.write("Bagian ini menjelaskan perkembangan proses Identifkasi, Perizinan, Preukur Terpasang, dan Sampling di setiap spasi di setiap prospek.")
     
     # Pivot Table for Identifikasi dan Perizinan with Total column and Total row
@@ -93,7 +93,7 @@ with tab1:
     st.plotly_chart(fig_all_spasi2, use_container_width=True)
 
 with tab2:
-    st.write("## Data setiap Spasi")
+    st.write("## Matriks Data setiap Spasi")
     st.write("### Matriks Identifikasi dan Perizinan")
     
     unique_spasi = data['Spasi'].unique()
@@ -125,7 +125,33 @@ with tab2:
         st.dataframe(pivot_SPASI)
 
 with tab3:
-    st.write("## Peta & Data")
+    st.write("## Tabel Data")
+
+    # Expandable sections for both datasets
+    with st.expander("Data Identifikasi dan Perizinan"):
+        name = st_keyup("Search Bar Identifikasi dan Perizinan")
+
+        if name:
+            filtered = data[data.apply(lambda row: row.astype(str).str.lower().str.contains(name.lower(), na=False).any(), axis=1)]
+        else:
+            filtered = data
+        
+        st.write(len(filtered), "data ditemukan")
+        st.write(filtered)
+
+    with st.expander("Data Preukur Terpasang dan Tersampling"):
+        name = st_keyup("Search Bar Terpasang dan Tersampling")
+
+        if name:
+            filtered = data2[data2.apply(lambda row: row.astype(str).str.lower().str.contains(name.lower(), na=False).any(), axis=1)]
+        else:
+            filtered = data2
+        
+        st.write(len(filtered), "data ditemukan")
+        st.write(filtered)
+
+with tab4:
+    st.write("## Peta")
 
     # Scatter map for `data`
     map_fig_data = px.scatter_mapbox(
@@ -156,29 +182,6 @@ with tab3:
     # Display maps
     st.plotly_chart(map_fig_data, use_container_width=True)
     st.plotly_chart(map_fig_data2, use_container_width=True)
-
-    # Expandable sections for both datasets
-    with st.expander("Data Identifikasi dan Perizinan"):
-        name = st_keyup("Search Bar Identifikasi dan Perizinan")
-
-        if name:
-            filtered = data[data.apply(lambda row: row.astype(str).str.lower().str.contains(name.lower(), na=False).any(), axis=1)]
-        else:
-            filtered = data
-        
-        st.write(len(filtered), "data ditemukan")
-        st.write(filtered)
-
-    with st.expander("Data Preukur Terpasang dan Tersampling"):
-        name = st_keyup("Search Bar Terpasang dan Tersampling")
-
-        if name:
-            filtered = data2[data2.apply(lambda row: row.astype(str).str.lower().str.contains(name.lower(), na=False).any(), axis=1)]
-        else:
-            filtered = data2
-        
-        st.write(len(filtered), "data ditemukan")
-        st.write(filtered)
 
 # Final Optimizations
 st.write("## Summary")
