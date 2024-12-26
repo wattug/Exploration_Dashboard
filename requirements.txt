@@ -2,3 +2,4 @@ streamlit
 plotly
 pandas
 st-gsheets-connection
+st_keyup
