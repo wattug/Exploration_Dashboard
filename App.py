@@ -1,5 +1,6 @@
 # app.py
 import streamlit as st
+from st_keyup import st_keyup
 from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 import pandas as pd
@@ -158,10 +159,26 @@ with tab3:
 
     # Expandable sections for both datasets
     with st.expander("Data Identifikasi dan Perizinan"):
-        st.dataframe(data)
+        name = st_keyup("Search Bar Identifikasi dan Perizinan")
+
+        if name:
+            filtered = data[data.apply(lambda row: row.astype(str).str.lower().str.contains(name.lower(), na=False).any(), axis=1)]
+        else:
+            filtered = data
+        
+        st.write(len(filtered), "data ditemukan")
+        st.write(filtered)
 
     with st.expander("Data Preukur Terpasang dan Tersampling"):
-        st.dataframe(data2)
+        name = st_keyup("Search Bar Terpasang dan Tersampling")
+
+        if name:
+            filtered = data2[data2.apply(lambda row: row.astype(str).str.lower().str.contains(name.lower(), na=False).any(), axis=1)]
+        else:
+            filtered = data2
+        
+        st.write(len(filtered), "data ditemukan")
+        st.write(filtered)
 
 # Final Optimizations
 st.write("## Summary")
