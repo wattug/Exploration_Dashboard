@@ -16,7 +16,7 @@ st.title("Dashboard Eksplorasi Bauksit Meliau")
 st.write("Perkembangan TP selama proses eksplorasi.")
 
 # Mobile-Friendly Design: Toggle between Tabs
-tab1, tab2, tab3, tab4 = st.tabs(["Matriks Data", "Matriks Data per Spasi", "Tabel Data", "Peta"])
+tab1, tab2, tab3 = st.tabs(["Matriks Data", "Tabel Data", "Peta"])
 
 # Create a connection object.
 conn = st.connection("gsheets", type=GSheetsConnection)
@@ -92,7 +92,6 @@ with tab1:
     )
     st.plotly_chart(fig_all_spasi2, use_container_width=True)
 
-with tab2:
     st.write("## Matriks Data setiap Spasi")
     st.write("### Matriks Identifikasi dan Perizinan")
     
@@ -124,7 +123,7 @@ with tab2:
         st.write(f"### Matriks spasi {SPASI_value}")
         st.dataframe(pivot_SPASI)
 
-with tab3:
+with tab2:
     st.write("## Tabel Data")
 
     # Expandable sections for both datasets
@@ -150,7 +149,7 @@ with tab3:
         st.write(len(filtered), "data ditemukan")
         st.write(filtered)
 
-with tab4:
+with tab3:
     st.write("## Peta")
 
     # Scatter map for `data`
