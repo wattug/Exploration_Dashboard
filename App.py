@@ -1,11 +1,11 @@
+# app.py
+import streamlit as st
+from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 
-# Load data
-data = pd.read_csv("IdentifikasiIzinMCU.csv")
-data2 = pd.read_csv("dataTerpasangTersampling.csv")
 
 # Page Layout
 st.set_page_config(page_title="Dashboard Eksplorasi", layout="wide")
@@ -17,6 +17,12 @@ st.write("Perkembangan TP selama proses eksplorasi.")
 # Mobile-Friendly Design: Toggle between Tabs
 tab1, tab2, tab3 = st.tabs(["Seluruh Data", "Data per Spasi", "Peta & Data"])
 
+# Create a connection object.
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+# Load data
+data = conn.read(worksheet=0)
+data2 = conn.read(worksheet=945353715)
 with tab1:
     st.write("## Seluruh Data")
     st.write("Bagian ini menjelaskan perkembangan proses Identifkasi, Perizinan, Preukur Terpasang, dan Sampling di setiap spasi di setiap prospek.")
