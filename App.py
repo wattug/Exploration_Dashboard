@@ -128,7 +128,7 @@ with tab2:
 
     # Expandable sections for both datasets
     with st.expander("Data Identifikasi dan Perizinan"):
-        name = st_keyup("Search Bar Identifikasi dan Perizinan")
+        name = st_keyup("Search Bar Identifikasi dan Perizinan", key="unique_key_1")
 
         if name:
             filtered = data[data.apply(lambda row: row.astype(str).str.lower().str.contains(name.lower(), na=False).any(), axis=1)]
@@ -139,7 +139,7 @@ with tab2:
         st.write(filtered)
 
     with st.expander("Data Preukur Terpasang dan Tersampling"):
-        name = st_keyup("Search Bar Terpasang dan Tersampling")
+        name = st_keyup("Search Bar Terpasang dan Tersampling", key="unique_key_2")
 
         if name:
             filtered = data2[data2.apply(lambda row: row.astype(str).str.lower().str.contains(name.lower(), na=False).any(), axis=1)]
